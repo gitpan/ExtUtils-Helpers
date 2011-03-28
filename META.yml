@@ -1,0 +1,26 @@
+---
+abstract: 'Various portability utilities for module builders'
+author:
+  - 'Ken Williams <kwilliams@cpan.org>'
+  - 'Leon Timmermans <leont@cpan.org>'
+build_requires:
+  Config: 0
+  Cwd: 0
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110580'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: ExtUtils-Helpers
+requires:
+  Exporter: 5.57
+  Text::ParseWords: 3.24
+  perl: 5.006
+resources:
+  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=ExtUtils-Helpers
+  repository: git://github.com/Leont/extutils-helpers.git
+version: 0.001
