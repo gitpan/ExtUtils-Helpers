@@ -27,7 +27,7 @@ my %WriteMakefileArgs = (
     'Exporter' => '5.57',
     'Text::ParseWords' => '3.24'
   },
-  'VERSION' => '0.001',
+  'VERSION' => '0.002',
   'test' => {
     'TESTS' => 't/*.t'
   }

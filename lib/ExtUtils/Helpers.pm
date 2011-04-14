@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 BEGIN {
-  $ExtUtils::Helpers::VERSION = '0.001';
+  $ExtUtils::Helpers::VERSION = '0.002';
 }
 use strict;
 use warnings;
@@ -51,7 +51,7 @@ sub make_executable {
     if (-T $script) {
       # Skip native batch script
       next if $script =~ /\.(bat|cmd)$/;
-      my $out = eval { pl2bat(in => $script, update => 1) };
+      my $out = eval { _pl2bat(in => $script, update => 1) };
       if ($@) {
         warn "WARNING: Unable to convert file '$script' to an executable script:\n$@";
       } else {
@@ -65,14 +65,14 @@ sub make_executable {
 # distributed with perl. It requires too much voodoo with shell quoting
 # differences and shortcomings between the various flavors of Windows
 # to reliably shell out
-sub pl2bat {
+sub _pl2bat {
   my %opts = @_;
 
   # NOTE: %0 is already enclosed in doublequotes by cmd.exe, as appropriate
   $opts{ntargs}    = '-x -S %0 %*';
   $opts{otherargs} = '-x -S "%0" %1 %2 %3 %4 %5 %6 %7 %8 %9';
 
-  $opts{stripsuffix} = qr/\\.plx?/' unless exists $opts{stripsuffix};
+  $opts{stripsuffix} = qr/\.plx?/ unless exists $opts{stripsuffix};
 
   unless (exists $opts{out}) {
     $opts{out} = $opts{in};
@@ -211,7 +211,7 @@ sub build_script {
 1;
 
 
-__END__
+
 =pod
 
 =head1 NAME
@@ -220,7 +220,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -244,7 +244,7 @@ This function returns the appropriate name for the Build script on the local pla
 
 This makes a perl script executable.
 
-=head2 split_like_shell
+=head2 split_like_shell($string)
 
 This function splits a string the same way as the local platform does.
 
@@ -270,4 +270,7 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
 
