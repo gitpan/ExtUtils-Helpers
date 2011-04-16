@@ -25,9 +25,11 @@ my %WriteMakefileArgs = (
   'NAME' => 'ExtUtils::Helpers',
   'PREREQ_PM' => {
     'Exporter' => '5.57',
+    'File::Basename' => '0',
+    'File::Spec::Functions' => '0',
     'Text::ParseWords' => '3.24'
   },
-  'VERSION' => '0.002',
+  'VERSION' => '0.003',
   'test' => {
     'TESTS' => 't/*.t'
   }

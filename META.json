@@ -23,6 +23,8 @@
       "runtime" : {
          "requires" : {
             "Exporter" : "5.57",
+            "File::Basename" : 0,
+            "File::Spec::Functions" : 0,
             "Text::ParseWords" : "3.24",
             "perl" : "5.006"
          }
@@ -47,6 +49,6 @@
          "web" : "http://github.com/Leont/extutils-helpers"
       }
    },
-   "version" : "0.002"
+   "version" : "0.003"
 }
 

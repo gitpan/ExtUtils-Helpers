@@ -1,12 +1,15 @@
 package ExtUtils::Helpers;
 BEGIN {
-  $ExtUtils::Helpers::VERSION = '0.002';
+  $ExtUtils::Helpers::VERSION = '0.003';
 }
 use strict;
 use warnings;
 use Exporter 5.57 'import';
 
-our @EXPORT_OK = qw/build_script make_executable split_like_shell/;
+use File::Basename;
+use File::Spec::Functions qw/splitpath splitdir canonpath/;
+
+our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename/;
 
 sub _make_executable {
   # Perl's chmod() is mapped to useful things on various non-Unix
@@ -160,12 +163,12 @@ sub split_like_shell {
   return @argv unless defined && length;
 
   my $arg = '';
-  my( $i, $quote_mode ) = ( 0, 0 );
+  my ($i, $quote_mode ) = ( 0, 0 );
 
-  while ( $i < length() ) {
+  while ( $i < length ) {
 
-    my $ch      = substr( $_, $i  , 1 );
-    my $next_ch = substr( $_, $i+1, 1 );
+    my $ch      = substr $_, $i  , 1;
+    my $next_ch = substr $_, $i+1, 1;
 
     if ( $ch eq '\\' && $next_ch eq '"' ) {
       $arg .= '"';
@@ -181,13 +184,13 @@ sub split_like_shell {
 	      ( $i + 2 == length()  ||
 		substr( $_, $i + 2, 1 ) eq ' ' )
 	    ) { # for cases like: a"" => [ 'a' ]
-      push( @argv, $arg );
+      push @argv, $arg;
       $arg = '';
       $i += 2;
     } elsif ( $ch eq '"' ) {
       $quote_mode = !$quote_mode;
     } elsif ( $ch eq ' ' && !$quote_mode ) {
-      push( @argv, $arg ) if $arg;
+      push @argv, $arg if $arg;
       $arg = '';
       ++$i while substr( $_, $i + 1, 1 ) eq ' ';
     } else {
@@ -197,7 +200,7 @@ sub split_like_shell {
     $i++;
   }
 
-  push( @argv, $arg ) if defined( $arg ) && length( $arg );
+  push @argv, $arg if defined $arg && length $arg;
   return @argv;
 }
 EOF
@@ -205,6 +208,28 @@ EOF
 
 sub build_script {
 	return $^O eq 'VMS' ? 'Build.com' : 'Build';
+}
+
+sub man1_pagename {
+	my $filename = shift;
+	return basename($filename).".1";
+}
+
+my %separator = (
+	MSWin32 => '.',
+	VMS => '__',
+	os2 => '.',
+	cygwin => '.',
+);
+
+sub man3_pagename {
+	my $filename = shift;
+	my ($vols, $dirs, $file) = splitpath(canonpath($filename));
+	$file = basename($file, qw/.pm .pod/);
+	my @dirs = grep { length } splitdir($dirs);
+	shift @dirs if $dirs[0] eq 'lib';
+	my $separator = $separator{$^O} || '::';
+	return join $separator, @dirs, "$file.3";
 }
 
 # ABSTRACT: Various portability utilities for module builders
@@ -220,7 +245,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
@@ -247,6 +272,14 @@ This makes a perl script executable.
 =head2 split_like_shell($string)
 
 This function splits a string the same way as the local platform does.
+
+=head2 man1_pagename($filename)
+
+Returns the man page filename for a script.
+
+=head2 man3_pagename($filename)
+
+Returns the man page filename for a Perl library.
 
 =head1 AUTHORS
 
