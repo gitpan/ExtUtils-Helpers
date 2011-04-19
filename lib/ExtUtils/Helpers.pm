@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 BEGIN {
-  $ExtUtils::Helpers::VERSION = '0.004';
+  $ExtUtils::Helpers::VERSION = '0.005';
 }
 use strict;
 use warnings;
@@ -239,7 +239,7 @@ sub manify {
 	my $dirname = dirname($output_file);
 	mkpath($dirname, $opts->{verbose}) if not -d $dirname;
 	Pod::Man->new(section => $section)->parse_from_file($input_file, $output_file);
-	print "Manifying $output_file\n" if $opts->{verbose} > 0;
+	print "Manifying $output_file\n" if $opts->{verbose} && $opts->{verbose} > 0;
 	return;
 }
 
@@ -256,7 +256,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
