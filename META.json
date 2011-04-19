@@ -24,7 +24,9 @@
          "requires" : {
             "Exporter" : "5.57",
             "File::Basename" : 0,
+            "File::Path" : 0,
             "File::Spec::Functions" : 0,
+            "Pod::Man" : 0,
             "Text::ParseWords" : "3.24",
             "perl" : "5.006"
          }
@@ -49,6 +51,6 @@
          "web" : "http://github.com/Leont/extutils-helpers"
       }
    },
-   "version" : "0.003"
+   "version" : "0.004"
 }
 
