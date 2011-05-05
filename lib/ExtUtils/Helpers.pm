@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 BEGIN {
-  $ExtUtils::Helpers::VERSION = '0.005';
+  $ExtUtils::Helpers::VERSION = '0.006';
 }
 use strict;
 use warnings;
@@ -191,10 +191,10 @@ sub split_like_shell {
       $i += 2;
     } elsif ( $ch eq '"' ) {
       $quote_mode = !$quote_mode;
-    } elsif ( $ch eq ' ' && !$quote_mode ) {
+    } elsif ( $ch =~ /\s/ && !$quote_mode ) {
       push @argv, $arg if $arg;
       $arg = '';
-      ++$i while substr( $_, $i + 1, 1 ) eq ' ';
+      ++$i while substr( $_, $i + 1, 1 ) =~ /\s/;
     } else {
       $arg .= $ch;
     }
@@ -256,7 +256,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
