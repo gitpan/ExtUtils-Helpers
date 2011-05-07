@@ -11,7 +11,6 @@ lib/ExtUtils/Helpers.pm
 oldcode
 t/make_executable.t
 t/man_pagename.t
-t/release-kwalitee.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/split_like_shell.t

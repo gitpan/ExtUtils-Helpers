@@ -31,7 +31,7 @@ my %WriteMakefileArgs = (
     'Pod::Man' => '0',
     'Text::ParseWords' => '3.24'
   },
-  'VERSION' => '0.006',
+  'VERSION' => '0.007',
   'test' => {
     'TESTS' => 't/*.t'
   }
