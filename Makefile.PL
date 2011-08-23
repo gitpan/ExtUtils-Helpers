@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-BEGIN { require 5.006; }
+use 5.006;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -12,7 +12,6 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'Various portability utilities for module builders',
   'AUTHOR' => 'Ken Williams <kwilliams@cpan.org>, Leon Timmermans <leont@cpan.org>',
   'BUILD_REQUIRES' => {
-    'Config' => '0',
     'Cwd' => '0',
     'Test::More' => '0'
   },
@@ -24,14 +23,17 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'ExtUtils::Helpers',
   'PREREQ_PM' => {
+    'Config' => '0',
     'Exporter' => '5.57',
+    'ExtUtils::MakeMaker' => '0',
     'File::Basename' => '0',
     'File::Path' => '0',
     'File::Spec::Functions' => '0',
+    'Module::Load' => '0',
     'Pod::Man' => '0',
     'Text::ParseWords' => '3.24'
   },
-  'VERSION' => '0.007',
+  'VERSION' => '0.008',
   'test' => {
     'TESTS' => 't/*.t'
   }

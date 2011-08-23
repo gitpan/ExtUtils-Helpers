@@ -8,6 +8,8 @@ README
 SIGNATURE
 dist.ini
 lib/ExtUtils/Helpers.pm
+lib/ExtUtils/Helpers/Unix.pm
+lib/ExtUtils/Helpers/Windows.pm
 oldcode
 t/make_executable.t
 t/man_pagename.t

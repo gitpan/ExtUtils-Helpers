@@ -5,7 +5,7 @@
       "Leon Timmermans <leont@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110580",
+   "generated_by" : "Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110440",
    "license" : [
       "perl_5"
    ],
@@ -22,10 +22,13 @@
       },
       "runtime" : {
          "requires" : {
+            "Config" : 0,
             "Exporter" : "5.57",
+            "ExtUtils::MakeMaker" : 0,
             "File::Basename" : 0,
             "File::Path" : 0,
             "File::Spec::Functions" : 0,
+            "Module::Load" : 0,
             "Pod::Man" : 0,
             "Text::ParseWords" : "3.24",
             "perl" : "5.006"
@@ -33,7 +36,6 @@
       },
       "test" : {
          "requires" : {
-            "Config" : 0,
             "Cwd" : 0,
             "Test::More" : 0
          }
@@ -51,6 +53,6 @@
          "web" : "http://github.com/Leont/extutils-helpers"
       }
    },
-   "version" : "0.007"
+   "version" : "0.008"
 }
 
