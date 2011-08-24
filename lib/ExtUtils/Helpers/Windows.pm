@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Windows;
 BEGIN {
-  $ExtUtils::Helpers::Windows::VERSION = '0.008';
+  $ExtUtils::Helpers::Windows::VERSION = '0.009';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -190,7 +190,7 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.008
+version 0.009
 
 =for Pod::Coverage make_executable
 split_like_shell
