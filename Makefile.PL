@@ -9,33 +9,35 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Various portability utilities for module builders',
-  'AUTHOR' => 'Ken Williams <kwilliams@cpan.org>, Leon Timmermans <leont@cpan.org>',
-  'BUILD_REQUIRES' => {
-    'Cwd' => '0',
-    'Test::More' => '0'
+  "ABSTRACT" => "Various portability utilities for module builders",
+  "AUTHOR" => "Ken Williams <kwilliams\@cpan.org>, Leon Timmermans <leont\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "Cwd" => 0,
+    "Test::More" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.30'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'ExtUtils-Helpers',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'ExtUtils::Helpers',
-  'PREREQ_PM' => {
-    'Config' => '0',
-    'Exporter' => '5.57',
-    'ExtUtils::MakeMaker' => '0',
-    'File::Basename' => '0',
-    'File::Path' => '0',
-    'File::Spec::Functions' => '0',
-    'Module::Load' => '0',
-    'Pod::Man' => '0',
-    'Text::ParseWords' => '3.24'
+  "DISTNAME" => "ExtUtils-Helpers",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "ExtUtils::Helpers",
+  "PREREQ_PM" => {
+    "Config" => 0,
+    "Exporter" => "5.57",
+    "ExtUtils::MakeMaker" => 0,
+    "File::Basename" => 0,
+    "File::Path" => 0,
+    "File::Spec::Functions" => 0,
+    "Module::Load" => 0,
+    "Pod::Man" => 0,
+    "Text::ParseWords" => "3.24",
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '0.009',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.010",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

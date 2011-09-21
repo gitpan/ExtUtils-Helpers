@@ -1,7 +1,4 @@
 package ExtUtils::Helpers;
-BEGIN {
-  $ExtUtils::Helpers::VERSION = '0.009';
-}
 use strict;
 use warnings FATAL => 'all';
 use Exporter 5.57 'import';
@@ -13,6 +10,7 @@ use Pod::Man;
 use Module::Load;
 
 our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename manify man3_pagename/;
+our $VERSION = 0.010;
 
 BEGIN {
 	my $package = "ExtUtils::Helpers::" . ($^O eq 'MSWin32' ? 'Windows' : 'Unix');
@@ -67,7 +65,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.009
+version 0.010
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Windows;
-BEGIN {
-  $ExtUtils::Helpers::Windows::VERSION = '0.009';
+{
+  $ExtUtils::Helpers::Windows::VERSION = '0.010';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -10,20 +10,7 @@ our @EXPORT = qw/make_executable split_like_shell/;
 
 use Config;
 
-sub _make_executable {
-  # Perl's chmod() is mapped to useful things on various non-Unix
-  # platforms, so we use it everywhere even though it looks
-  # Unixish.
-
-  foreach (@_) {
-    my $current_mode = (stat $_)[2];
-    chmod $current_mode | oct(111), $_;
-  }
-}
-
 sub make_executable {
-  _make_executable(@_);
-
   foreach my $script (@_) {
     if (-T $script) {
       # Skip native batch script
@@ -31,8 +18,6 @@ sub make_executable {
       my $out = eval { _pl2bat(in => $script, update => 1) };
       if ($@) {
         warn "WARNING: Unable to convert file '$script' to an executable script:\n$@";
-      } else {
-        _make_executable($out);
       }
     }
   }
@@ -190,7 +175,7 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.009
+version 0.010
 
 =for Pod::Coverage make_executable
 split_like_shell
