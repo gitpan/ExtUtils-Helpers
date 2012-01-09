@@ -1,25 +1,23 @@
 package ExtUtils::Helpers;
+{
+  $ExtUtils::Helpers::VERSION = '0.011';
+}
 use strict;
 use warnings FATAL => 'all';
 use Exporter 5.57 'import';
 
-use File::Basename qw/basename dirname/;
-use File::Path qw/mkpath/;
+use File::Basename qw/basename/;
 use File::Spec::Functions qw/splitpath splitdir canonpath/;
 use Pod::Man;
-use Module::Load;
 
-our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename manify man3_pagename/;
-our $VERSION = 0.010;
+use ExtUtils::Helpers::Unix ();
+use ExtUtils::Helpers::Windows ();
+
+our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename/;
 
 BEGIN {
 	my $package = "ExtUtils::Helpers::" . ($^O eq 'MSWin32' ? 'Windows' : 'Unix');
-	load($package);
 	$package->import();
-}
-
-sub build_script {
-	return $^O eq 'VMS' ? 'Build.com' : 'Build';
 }
 
 sub man1_pagename {
@@ -44,16 +42,9 @@ sub man3_pagename {
 	return join $separator, @dirs, "$file.3pm";
 }
 
-sub manify {
-	my ($input_file, $output_file, $section, $opts) = @_;
-	my $dirname = dirname($output_file);
-	mkpath($dirname, $opts->{verbose}) if not -d $dirname;
-	Pod::Man->new(section => $section)->parse_from_file($input_file, $output_file);
-	print "Manifying $output_file\n" if $opts->{verbose} && $opts->{verbose} > 0;
-	return;
-}
-
 1;
+
+# ABSTRACT: Various portability utilities for module builders
 
 
 
@@ -65,15 +56,15 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =head1 SYNOPSIS
 
  use ExtUtils::Helpers qw/build_script make_executable split_like_shell/;
 
  unshift @ARGV, split_like_shell($ENV{PROGRAM_OPTS});
- write_script_to(build_script());
- make_executable(build_script());
+ write_script_to('Build');
+ make_executable('Build');
 
 =head1 DESCRIPTION
 
@@ -105,6 +96,10 @@ Returns the man page filename for a Perl library.
 
 Create a manpage for the script in C<$input_filename> as C<$output_file> in section C<$section>
 
+=head1 ACKNOWLEDGEMENTS
+
+Olivier Mengué made C<make_executable> work on Windows.
+
 =head1 AUTHORS
 
 =over 4
@@ -130,6 +125,4 @@ the same terms as the Perl 5 programming language system itself.
 
 
 __END__
-
-# ABSTRACT: Various portability utilities for module builders
 

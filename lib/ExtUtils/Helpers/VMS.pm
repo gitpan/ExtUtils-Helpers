@@ -1,6 +1,6 @@
-package ExtUtils::Helpers::Unix;
+package ExtUtils::Helpers::VMS;
 {
-  $ExtUtils::Helpers::Unix::VERSION = '0.011';
+  $ExtUtils::Helpers::VMS::VERSION = '0.011';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -8,30 +8,18 @@ use warnings FATAL => 'all';
 use Exporter 5.57 'import';
 our @EXPORT = qw/make_executable split_like_shell/;
 
-use Text::ParseWords 3.24 qw/shellwords/;
-use ExtUtils::MakeMaker;
+use ExtUtils::Helpers::Unix qw/split_like_shell/; # Probably very wrong, but whatever
+use File::Copy qw/copy/;
 
 sub make_executable {
-	my $file = shift;
-	my $current_mode = (stat $file)[2] + 0;
-	ExtUtils::MM->fixin($file) if -T $file;
-	chmod $current_mode | oct(111), $file;
+	my $filename = shift;
+	my $batchname = "$filename.com";
+	copy($filename, $batchname);
+	ExtUtils::Helpers::Unix::make_executable($batchname);
 	return;
 }
 
-sub split_like_shell {
-  my ($string) = @_;
-
-  return if not defined $string;
-  $string =~ s/^\s+|\s+$//g;
-  return if not length $string;
-
-  return shellwords($string);
-}
-
-1;
-
-# ABSTRACT: Unix specific helper bits
+# ABSTRACT: VMS specific helper bits
 
 
 
@@ -39,14 +27,13 @@ sub split_like_shell {
 
 =head1 NAME
 
-ExtUtils::Helpers::Unix - Unix specific helper bits
+ExtUtils::Helpers::VMS - VMS specific helper bits
 
 =head1 VERSION
 
 version 0.011
 
 =for Pod::Coverage make_executable
-split_like_shell
 
 =head1 AUTHORS
 

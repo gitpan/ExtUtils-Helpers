@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Windows;
 {
-  $ExtUtils::Helpers::Windows::VERSION = '0.010';
+  $ExtUtils::Helpers::Windows::VERSION = '0.011';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -11,16 +11,14 @@ our @EXPORT = qw/make_executable split_like_shell/;
 use Config;
 
 sub make_executable {
-  foreach my $script (@_) {
-    if (-T $script) {
-      # Skip native batch script
-      next if $script =~ /\.(bat|cmd)$/;
-      my $out = eval { _pl2bat(in => $script, update => 1) };
-      if ($@) {
-        warn "WARNING: Unable to convert file '$script' to an executable script:\n$@";
-      }
+  my $script = shift;
+  if (-T $script && $script !~ /\.(bat|cmd)$/) {
+    my $out = eval { _pl2bat(in => $script, update => 1) };
+    if ($@) {
+      warn "WARNING: Unable to convert file '$script' to an executable script:\n$@";
     }
   }
+  return;
 }
 
 # Inspired from pl2bat, but fixed:
@@ -175,7 +173,7 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =for Pod::Coverage make_executable
 split_like_shell

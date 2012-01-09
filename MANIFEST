@@ -9,8 +9,10 @@ SIGNATURE
 dist.ini
 lib/ExtUtils/Helpers.pm
 lib/ExtUtils/Helpers/Unix.pm
+lib/ExtUtils/Helpers/VMS.pm
 lib/ExtUtils/Helpers/Windows.pm
 oldcode
+t/author-split_like_shell.t
 t/make_executable.t
 t/man_pagename.t
 t/release-pod-coverage.t

@@ -27,15 +27,14 @@ my %WriteMakefileArgs = (
     "Exporter" => "5.57",
     "ExtUtils::MakeMaker" => 0,
     "File::Basename" => 0,
-    "File::Path" => 0,
+    "File::Copy" => 0,
     "File::Spec::Functions" => 0,
-    "Module::Load" => 0,
     "Pod::Man" => 0,
     "Text::ParseWords" => "3.24",
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.010",
+  "VERSION" => "0.011",
   "test" => {
     "TESTS" => "t/*.t"
   }
