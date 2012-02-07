@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.011';
+  $ExtUtils::Helpers::VERSION = '0.012';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -12,11 +12,13 @@ use Pod::Man;
 
 use ExtUtils::Helpers::Unix ();
 use ExtUtils::Helpers::Windows ();
+use ExtUtils::Helpers::VMS ();
 
-our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename/;
+our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename detildefy/;
 
 BEGIN {
-	my $package = "ExtUtils::Helpers::" . ($^O eq 'MSWin32' ? 'Windows' : 'Unix');
+	my %impl_for = ( MSWin32 => 'Windows', VMS => 'VMS');
+	my $package = "ExtUtils::Helpers::" . ($impl_for{$^O} || 'Unix');
 	$package->import();
 }
 
@@ -31,6 +33,7 @@ my %separator = (
 	os2 => '.',
 	cygwin => '.',
 );
+my $separator = $separator{$^O} || '::';
 
 sub man3_pagename {
 	my $filename = shift;
@@ -38,7 +41,6 @@ sub man3_pagename {
 	$file = basename($file, qw/.pm .pod/);
 	my @dirs = grep { length } splitdir($dirs);
 	shift @dirs if $dirs[0] eq 'lib';
-	my $separator = $separator{$^O} || '::';
 	return join $separator, @dirs, "$file.3pm";
 }
 
@@ -56,7 +58,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 SYNOPSIS
 
@@ -83,6 +85,10 @@ This makes a perl script executable.
 =head2 split_like_shell($string)
 
 This function splits a string the same way as the local platform does.
+
+=head2 detildefy($path)
+
+This function substitutes a tilde at the start of a path with the users homedir in an appropriate manner.
 
 =head2 man1_pagename($filename)
 

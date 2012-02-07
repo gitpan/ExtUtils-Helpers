@@ -1,12 +1,12 @@
 package ExtUtils::Helpers::Unix;
 {
-  $ExtUtils::Helpers::Unix::VERSION = '0.011';
+  $ExtUtils::Helpers::Unix::VERSION = '0.012';
 }
 use strict;
 use warnings FATAL => 'all';
 
 use Exporter 5.57 'import';
-our @EXPORT = qw/make_executable split_like_shell/;
+our @EXPORT = qw/make_executable split_like_shell detildefy/;
 
 use Text::ParseWords 3.24 qw/shellwords/;
 use ExtUtils::MakeMaker;
@@ -29,6 +29,16 @@ sub split_like_shell {
   return shellwords($string);
 }
 
+sub detildefy {
+	my $value = shift;
+	# tilde with optional username
+	for ($value) {
+		s{ ^ ~ (?= /|$)}          [ $ENV{HOME} || (getpwuid $>)[7] ]ex or # tilde without user name
+		s{ ^ ~ ([^/]+) (?= /|$) } { (getpwnam $1)[7] || "~$1" }ex;        # tilde with user name
+	}
+	return $value;
+}
+
 1;
 
 # ABSTRACT: Unix specific helper bits
@@ -43,10 +53,11 @@ ExtUtils::Helpers::Unix - Unix specific helper bits
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =for Pod::Coverage make_executable
 split_like_shell
+detildefy
 
 =head1 AUTHORS
 

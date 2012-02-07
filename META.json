@@ -38,6 +38,8 @@
       "test" : {
          "requires" : {
             "Cwd" : 0,
+            "File::Find" : 0,
+            "File::Temp" : 0,
             "Test::More" : 0
          }
       }
@@ -54,6 +56,6 @@
          "web" : "http://github.com/Leont/extutils-helpers"
       }
    },
-   "version" : "0.011"
+   "version" : "0.012"
 }
 
