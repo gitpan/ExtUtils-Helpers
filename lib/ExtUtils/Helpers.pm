@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.012';
+  $ExtUtils::Helpers::VERSION = '0.013';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -58,7 +58,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.012
+version 0.013
 
 =head1 SYNOPSIS
 

@@ -8,10 +8,8 @@ use Test::More tests => 9;
 
 use ExtUtils::Helpers 'detildefy';
 
-my $p = 'install_base';
-
 SKIP: {
-	my $home = $ENV{HOME} ? $ENV{HOME} : undef;
+	my $home = $ENV{HOME} || $ENV{USERPROFILE} || undef;
 
 	if ($^O eq 'VMS') {
 		# Convert the path to UNIX format, trim off the trailing slash
@@ -21,7 +19,7 @@ SKIP: {
 
 	unless (defined $home) {
 		my @info = eval { getpwuid $> };
-		skip "No home directory for tilde-expansion tests", 15 if $@ or !defined $info[7];
+		skip "No home directory for tilde-expansion tests", 8 if $@ or !defined $info[7];
 		$home = $info[7];
 	}
 
@@ -38,6 +36,7 @@ SKIP: {
 	# Test when HOME is different from getpwuid(), as in sudo.
 	{
 		local $ENV{HOME} = '/wibble/whomp';
+		local $ENV{USERPROFILE} = $ENV{HOME};
 
 		is( detildefy('~'), "/wibble/whomp");
 	}

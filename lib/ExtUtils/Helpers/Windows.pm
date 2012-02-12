@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Windows;
 {
-  $ExtUtils::Helpers::Windows::VERSION = '0.012';
+  $ExtUtils::Helpers::Windows::VERSION = '0.013';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -161,7 +161,7 @@ sub split_like_shell {
 
 sub detildefy {
 	my $value = shift;
-	$value =~ s{ ^ ~ (?= [/\\] | $ ) }[$ENV{HOME}]x if $ENV{HOME};
+	$value =~ s{ ^ ~ (?= [/\\] | $ ) }[$ENV{USERPROFILE}]x if $ENV{USERPROFILE};
 	return $value;
 }
 
@@ -179,7 +179,7 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.012
+version 0.013
 
 =for Pod::Coverage make_executable
 split_like_shell

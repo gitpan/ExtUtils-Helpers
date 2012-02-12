@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Unix;
 {
-  $ExtUtils::Helpers::Unix::VERSION = '0.012';
+  $ExtUtils::Helpers::Unix::VERSION = '0.013';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -53,7 +53,7 @@ ExtUtils::Helpers::Unix - Unix specific helper bits
 
 =head1 VERSION
 
-version 0.012
+version 0.013
 
 =for Pod::Coverage make_executable
 split_like_shell
