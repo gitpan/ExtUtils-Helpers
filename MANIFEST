@@ -20,4 +20,3 @@ t/release-kwalitee.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/split_like_shell.t
-t/tilde.t

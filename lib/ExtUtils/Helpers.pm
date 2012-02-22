@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.013';
+  $ExtUtils::Helpers::VERSION = '0.014';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -14,7 +14,7 @@ use ExtUtils::Helpers::Unix ();
 use ExtUtils::Helpers::Windows ();
 use ExtUtils::Helpers::VMS ();
 
-our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename detildefy/;
+our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename/;
 
 BEGIN {
 	my %impl_for = ( MSWin32 => 'Windows', VMS => 'VMS');
@@ -58,7 +58,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.013
+version 0.014
 
 =head1 SYNOPSIS
 
@@ -85,10 +85,6 @@ This makes a perl script executable.
 =head2 split_like_shell($string)
 
 This function splits a string the same way as the local platform does.
-
-=head2 detildefy($path)
-
-This function substitutes a tilde at the start of a path with the users homedir in an appropriate manner.
 
 =head2 man1_pagename($filename)
 

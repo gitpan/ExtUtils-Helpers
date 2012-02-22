@@ -1,12 +1,12 @@
 package ExtUtils::Helpers::Windows;
 {
-  $ExtUtils::Helpers::Windows::VERSION = '0.013';
+  $ExtUtils::Helpers::Windows::VERSION = '0.014';
 }
 use strict;
 use warnings FATAL => 'all';
 
 use Exporter 5.57 'import';
-our @EXPORT = qw/make_executable split_like_shell detildefy/;
+our @EXPORT = qw/make_executable split_like_shell/;
 
 use Config;
 
@@ -159,12 +159,6 @@ sub split_like_shell {
 	return @argv;
 }
 
-sub detildefy {
-	my $value = shift;
-	$value =~ s{ ^ ~ (?= [/\\] | $ ) }[$ENV{USERPROFILE}]x if $ENV{USERPROFILE};
-	return $value;
-}
-
 1;
 
 # ABSTRACT: Windows specific helper bits
@@ -179,11 +173,10 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.013
+version 0.014
 
 =for Pod::Coverage make_executable
 split_like_shell
-detildefy
 
 =head1 AUTHORS
 
