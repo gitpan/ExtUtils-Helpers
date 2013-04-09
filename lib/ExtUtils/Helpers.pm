@@ -1,24 +1,22 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.014';
+  $ExtUtils::Helpers::VERSION = '0.015'; # TRIAL
 }
 use strict;
 use warnings FATAL => 'all';
 use Exporter 5.57 'import';
 
 use File::Basename qw/basename/;
-use File::Spec::Functions qw/splitpath splitdir canonpath/;
+use File::Spec::Functions qw/splitpath canonpath abs2rel/;
 use Pod::Man;
+use Module::Load;
 
-use ExtUtils::Helpers::Unix ();
-use ExtUtils::Helpers::Windows ();
-use ExtUtils::Helpers::VMS ();
-
-our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename/;
+our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename detildefy/;
 
 BEGIN {
 	my %impl_for = ( MSWin32 => 'Windows', VMS => 'VMS');
 	my $package = "ExtUtils::Helpers::" . ($impl_for{$^O} || 'Unix');
+	load($package);
 	$package->import();
 }
 
@@ -36,12 +34,12 @@ my %separator = (
 my $separator = $separator{$^O} || '::';
 
 sub man3_pagename {
-	my $filename = shift;
+	my ($filename, $base) = @_;
+	$base ||= 'lib';
 	my ($vols, $dirs, $file) = splitpath(canonpath($filename));
 	$file = basename($file, qw/.pm .pod/);
-	my @dirs = grep { length } splitdir($dirs);
-	shift @dirs if $dirs[0] eq 'lib';
-	return join $separator, @dirs, "$file.3pm";
+	$dirs = abs2rel($dirs, $base);
+	return join $separator, $dirs, "$file.3pm";
 }
 
 1;
@@ -58,7 +56,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.014
+version 0.015
 
 =head1 SYNOPSIS
 
@@ -86,11 +84,15 @@ This makes a perl script executable.
 
 This function splits a string the same way as the local platform does.
 
+=head2 detildefy($path)
+
+This function substitutes a tilde at the start of a path with the users homedir in an appropriate manner.
+
 =head2 man1_pagename($filename)
 
 Returns the man page filename for a script.
 
-=head2 man3_pagename($filename)
+=head2 man3_pagename($filename, $basedir)
 
 Returns the man page filename for a Perl library.
 

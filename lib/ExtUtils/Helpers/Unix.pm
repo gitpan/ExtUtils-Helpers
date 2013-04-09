@@ -1,21 +1,33 @@
 package ExtUtils::Helpers::Unix;
 {
-  $ExtUtils::Helpers::Unix::VERSION = '0.014';
+  $ExtUtils::Helpers::Unix::VERSION = '0.015'; # TRIAL
 }
 use strict;
 use warnings FATAL => 'all';
 
 use Exporter 5.57 'import';
-our @EXPORT = qw/make_executable split_like_shell/;
+our @EXPORT = qw/make_executable split_like_shell detildefy/;
 
+use Carp qw/croak/;
+use Config;
 use Text::ParseWords 3.24 qw/shellwords/;
-use ExtUtils::MakeMaker;
 
 sub make_executable {
-	my $file = shift;
-	my $current_mode = (stat $file)[2] + 0;
-	ExtUtils::MM->fixin($file) if -T $file;
-	chmod $current_mode | oct(111), $file;
+	my $filename = shift;
+	my $current_mode = (stat $filename)[2] + 0;
+	if (-T $filename) {
+		open my $fh, '<:raw', $filename;
+		my @lines = <$fh>;
+		if (@lines and $lines[0] =~ s/ \A \#! \s* perl (.*) \z /$Config{startperl}$1/xms) {
+			open my $out, '>:raw', "$filename.new" or croak "Couldn't open $filename.new: $!";
+			print $out @lines;
+			close $out;
+			rename $filename, "$filename.bak" or croak "Couldn't rename $filename to $filename.bak";
+			rename "$filename.new", $filename or croak "Couldn't rename $filename.new to $filename";
+			unlink "$filename.bak";
+		}
+	}
+	chmod $current_mode | oct(111), $filename;
 	return;
 }
 
@@ -27,6 +39,16 @@ sub split_like_shell {
   return if not length $string;
 
   return shellwords($string);
+}
+
+sub detildefy {
+	my $value = shift;
+	# tilde with optional username
+	for ($value) {
+		s{ ^ ~ (?= /|$)}          [ $ENV{HOME} || (getpwuid $>)[7] ]ex or # tilde without user name
+		s{ ^ ~ ([^/]+) (?= /|$) } { (getpwnam $1)[7] || "~$1" }ex;        # tilde with user name
+	}
+	return $value;
 }
 
 1;
@@ -43,10 +65,11 @@ ExtUtils::Helpers::Unix - Unix specific helper bits
 
 =head1 VERSION
 
-version 0.014
+version 0.015
 
 =for Pod::Coverage make_executable
 split_like_shell
+detildefy
 
 =head1 AUTHORS
 

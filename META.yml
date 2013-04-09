@@ -11,19 +11,20 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640'
+generated_by: 'Dist::Zilla version 4.300031, CPAN::Meta::Converter version 2.130880'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: ExtUtils-Helpers
 requires:
+  Carp: 0
   Config: 0
   Exporter: 5.57
-  ExtUtils::MakeMaker: 0
   File::Basename: 0
   File::Copy: 0
   File::Spec::Functions: 0
+  Module::Load: 0
   Pod::Man: 0
   Text::ParseWords: 3.24
   perl: 5.006
@@ -32,4 +33,4 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=ExtUtils-Helpers
   repository: git://github.com/Leont/extutils-helpers.git
-version: 0.014
+version: 0.015

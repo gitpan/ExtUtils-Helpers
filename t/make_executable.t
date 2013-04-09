@@ -12,13 +12,12 @@ my $filename = 'test_exec';
 my @files;
 
 open my $out, '>', $filename or die "Couldn't create $filename: $!";
-print $out "#! perl \nexit \$ARGV[0];\n";
+print $out "#! perl -w\nexit \$ARGV[0];\n";
 close $out;
 
 make_executable($filename);
 
 foreach my $i (42, 51, 0) {
-	local $TODO = 'This doesn\'t work half of the time' if $^O eq 'MSWin32' and $i != 0;
 	my $cwd = cwd;
 	local $ENV{PATH} = join $Config{path_sep}, $cwd, $ENV{PATH};
 	my $ret = system $filename, $i;

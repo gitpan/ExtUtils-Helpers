@@ -25,18 +25,19 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "ExtUtils::Helpers",
   "PREREQ_PM" => {
+    "Carp" => 0,
     "Config" => 0,
     "Exporter" => "5.57",
-    "ExtUtils::MakeMaker" => 0,
     "File::Basename" => 0,
     "File::Copy" => 0,
     "File::Spec::Functions" => 0,
+    "Module::Load" => 0,
     "Pod::Man" => 0,
     "Text::ParseWords" => "3.24",
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.014",
+  "VERSION" => "0.015",
   "test" => {
     "TESTS" => "t/*.t"
   }
