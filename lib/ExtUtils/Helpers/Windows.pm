@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Windows;
 {
-  $ExtUtils::Helpers::Windows::VERSION = '0.015'; # TRIAL
+  $ExtUtils::Helpers::Windows::VERSION = '0.016';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -45,19 +45,25 @@ sub _pl2bat {
     \@echo off
     if "%OS%" == "Windows_NT" goto WinNT
     perl $opts{otherargs}
+	\@set ErrorLevel=%ErrorLevel%
     goto endofperl
     :WinNT
     perl $opts{ntargs}
+	\@set ErrorLevel=%ErrorLevel%
     if NOT "%COMSPEC%" == "%SystemRoot%\\system32\\cmd.exe" goto endofperl
     if %errorlevel% == 9009 echo You do not have Perl in your PATH.
-    if errorlevel 1 goto script_failed_so_exit_with_non_zero_val 2>nul
     goto endofperl
     \@rem ';
 EOT
 
 	$head =~ s/^\s+//gm;
 	my $headlines = 2 + ($head =~ tr/\n/\n/);
-	my $tail = "\n__END__\n:endofperl\n";
+	my $tail = <<EOT;
+	__END__
+	:endofperl
+	@"%COMSPEC%" /c exit /b %ErrorLevel%
+EOT
+	$tail =~ s/^\s+//gm;
 
 	my $linedone	= 0;
 	my $taildone	= 0;
@@ -181,7 +187,7 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.015
+version 0.016
 
 =for Pod::Coverage make_executable
 split_like_shell

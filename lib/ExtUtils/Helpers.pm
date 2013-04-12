@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.015'; # TRIAL
+  $ExtUtils::Helpers::VERSION = '0.016';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -47,7 +47,7 @@ sub man3_pagename {
 # ABSTRACT: Various portability utilities for module builders
 
 
-
+__END__
 =pod
 
 =head1 NAME
@@ -56,7 +56,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.015
+version 0.016
 
 =head1 SYNOPSIS
 
@@ -100,9 +100,11 @@ Returns the man page filename for a Perl library.
 
 Create a manpage for the script in C<$input_filename> as C<$output_file> in section C<$section>
 
+=encoding utf-8
+
 =head1 ACKNOWLEDGEMENTS
 
-Olivier Mengué made C<make_executable> work on Windows.
+Olivier Mengué and Christian Walde made C<make_executable> work on Windows.
 
 =head1 AUTHORS
 
@@ -126,7 +128,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
 
