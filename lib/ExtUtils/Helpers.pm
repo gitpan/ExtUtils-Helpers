@@ -1,13 +1,13 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.016';
+  $ExtUtils::Helpers::VERSION = '0.017';
 }
 use strict;
 use warnings FATAL => 'all';
 use Exporter 5.57 'import';
 
 use File::Basename qw/basename/;
-use File::Spec::Functions qw/splitpath canonpath abs2rel/;
+use File::Spec::Functions qw/splitpath canonpath abs2rel splitdir/;
 use Pod::Man;
 use Module::Load;
 
@@ -39,7 +39,7 @@ sub man3_pagename {
 	my ($vols, $dirs, $file) = splitpath(canonpath($filename));
 	$file = basename($file, qw/.pm .pod/);
 	$dirs = abs2rel($dirs, $base);
-	return join $separator, $dirs, "$file.3pm";
+	return join $separator, splitdir($dirs), "$file.3pm";
 }
 
 1;
@@ -56,7 +56,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.016
+version 0.017
 
 =head1 SYNOPSIS
 
