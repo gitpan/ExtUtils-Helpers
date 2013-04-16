@@ -36,7 +36,6 @@
             "File::Copy" : "0",
             "File::Spec::Functions" : "0",
             "Module::Load" : "0",
-            "Pod::Man" : "0",
             "Text::ParseWords" : "3.24",
             "perl" : "5.006",
             "strict" : "0",
@@ -64,6 +63,6 @@
          "web" : "http://github.com/Leont/extutils-helpers"
       }
    },
-   "version" : "0.017"
+   "version" : "0.018"
 }
 

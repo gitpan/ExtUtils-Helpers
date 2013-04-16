@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.017';
+  $ExtUtils::Helpers::VERSION = '0.018';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -8,7 +8,6 @@ use Exporter 5.57 'import';
 
 use File::Basename qw/basename/;
 use File::Spec::Functions qw/splitpath canonpath abs2rel splitdir/;
-use Pod::Man;
 use Module::Load;
 
 our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename detildefy/;
@@ -56,7 +55,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.017
+version 0.018
 
 =head1 SYNOPSIS
 

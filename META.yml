@@ -25,7 +25,6 @@ requires:
   File::Copy: 0
   File::Spec::Functions: 0
   Module::Load: 0
-  Pod::Man: 0
   Text::ParseWords: 3.24
   perl: 5.006
   strict: 0
@@ -33,4 +32,4 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=ExtUtils-Helpers
   repository: git://github.com/Leont/extutils-helpers.git
-version: 0.017
+version: 0.018
