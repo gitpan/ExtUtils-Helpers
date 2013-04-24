@@ -1,6 +1,6 @@
 package ExtUtils::Helpers::Unix;
 {
-  $ExtUtils::Helpers::Unix::VERSION = '0.018';
+  $ExtUtils::Helpers::Unix::VERSION = '0.019';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -18,7 +18,7 @@ sub make_executable {
 	if (-T $filename) {
 		open my $fh, '<:raw', $filename;
 		my @lines = <$fh>;
-		if (@lines and $lines[0] =~ s/ \A \#! \s* perl (.*) \z /$Config{startperl}$1/xms) {
+		if (@lines and $lines[0] =~ s{ \A \#! \s* (?:/\S+/)? perl \b (.*) \z }{$Config{startperl}$1}xms) {
 			open my $out, '>:raw', "$filename.new" or croak "Couldn't open $filename.new: $!";
 			print $out @lines;
 			close $out;
@@ -32,13 +32,13 @@ sub make_executable {
 }
 
 sub split_like_shell {
-  my ($string) = @_;
+	my ($string) = @_;
 
-  return if not defined $string;
-  $string =~ s/^\s+|\s+$//g;
-  return if not length $string;
+	return if not defined $string;
+	$string =~ s/^\s+|\s+$//g;
+	return if not length $string;
 
-  return shellwords($string);
+	return shellwords($string);
 }
 
 sub detildefy {
@@ -65,7 +65,7 @@ ExtUtils::Helpers::Unix - Unix specific helper bits
 
 =head1 VERSION
 
-version 0.018
+version 0.019
 
 =for Pod::Coverage make_executable
 split_like_shell

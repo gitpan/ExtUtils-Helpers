@@ -1,6 +1,6 @@
 package ExtUtils::Helpers;
 {
-  $ExtUtils::Helpers::VERSION = '0.018';
+  $ExtUtils::Helpers::VERSION = '0.019';
 }
 use strict;
 use warnings FATAL => 'all';
@@ -14,7 +14,7 @@ our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename 
 
 BEGIN {
 	my %impl_for = ( MSWin32 => 'Windows', VMS => 'VMS');
-	my $package = "ExtUtils::Helpers::" . ($impl_for{$^O} || 'Unix');
+	my $package = 'ExtUtils::Helpers::' . ($impl_for{$^O} || 'Unix');
 	load($package);
 	$package->import();
 }
@@ -55,7 +55,7 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.018
+version 0.019
 
 =head1 SYNOPSIS
 
