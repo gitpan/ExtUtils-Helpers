@@ -1,5 +1,9 @@
 Revision history for ExtUtils-Helpers
 
+0.021     2013-05-06 14:57:29 Europe/Amsterdam
+          Always use the right environmental variable
+          Use configuration provided manpage extension
+
 0.020     2013-04-29 14:14:20 Europe/Amsterdam
           Fix man3_pagename for top level domains
 
