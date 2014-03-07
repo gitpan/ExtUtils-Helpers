@@ -1,7 +1,5 @@
 package ExtUtils::Helpers;
-{
-  $ExtUtils::Helpers::VERSION = '0.021';
-}
+$ExtUtils::Helpers::VERSION = '0.022';
 use strict;
 use warnings FATAL => 'all';
 use Exporter 5.57 'import';
@@ -11,7 +9,7 @@ use File::Basename qw/basename/;
 use File::Spec::Functions qw/splitpath canonpath abs2rel splitdir/;
 use Module::Load;
 
-our @EXPORT_OK = qw/build_script make_executable split_like_shell man1_pagename man3_pagename detildefy/;
+our @EXPORT_OK = qw/make_executable split_like_shell man1_pagename man3_pagename detildefy/;
 
 BEGIN {
 	my %impl_for = ( MSWin32 => 'Windows', VMS => 'VMS');
@@ -46,9 +44,11 @@ sub man3_pagename {
 
 # ABSTRACT: Various portability utilities for module builders
 
-
 __END__
+
 =pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -56,11 +56,11 @@ ExtUtils::Helpers - Various portability utilities for module builders
 
 =head1 VERSION
 
-version 0.021
+version 0.022
 
 =head1 SYNOPSIS
 
- use ExtUtils::Helpers qw/build_script make_executable split_like_shell/;
+ use ExtUtils::Helpers qw/make_executable split_like_shell/;
 
  unshift @ARGV, split_like_shell($ENV{PROGRAM_OPTS});
  write_script_to('Build');
@@ -71,10 +71,6 @@ version 0.021
 This module provides various portable helper functions for module building modules.
 
 =head1 FUNCTIONS
-
-=head2 build_script()
-
-This function returns the appropriate name for the Build script on the local platform.
 
 =head2 make_executable($filename)
 
@@ -95,12 +91,6 @@ Returns the man page filename for a script.
 =head2 man3_pagename($filename, $basedir)
 
 Returns the man page filename for a Perl library.
-
-=head2 manify($input_filename, $output_file, $section, $opts)
-
-Create a manpage for the script in C<$input_filename> as C<$output_file> in section C<$section>
-
-=encoding utf-8
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -128,4 +118,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

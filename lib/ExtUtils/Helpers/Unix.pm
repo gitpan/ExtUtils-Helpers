@@ -1,7 +1,5 @@
 package ExtUtils::Helpers::Unix;
-{
-  $ExtUtils::Helpers::Unix::VERSION = '0.021';
-}
+$ExtUtils::Helpers::Unix::VERSION = '0.022';
 use strict;
 use warnings FATAL => 'all';
 
@@ -12,14 +10,16 @@ use Carp qw/croak/;
 use Config;
 use Text::ParseWords 3.24 qw/shellwords/;
 
+my $layer = $] >= 5.008001 ? ":raw" : "";
+
 sub make_executable {
 	my $filename = shift;
 	my $current_mode = (stat $filename)[2] + 0;
 	if (-T $filename) {
-		open my $fh, '<:raw', $filename;
+		open my $fh, "<$layer", $filename;
 		my @lines = <$fh>;
 		if (@lines and $lines[0] =~ s{ \A \#! \s* (?:/\S+/)? perl \b (.*) \z }{$Config{startperl}$1}xms) {
-			open my $out, '>:raw', "$filename.new" or croak "Couldn't open $filename.new: $!";
+			open my $out, ">$layer", "$filename.new" or croak "Couldn't open $filename.new: $!";
 			print $out @lines;
 			close $out;
 			rename $filename, "$filename.bak" or croak "Couldn't rename $filename to $filename.bak";
@@ -55,9 +55,11 @@ sub detildefy {
 
 # ABSTRACT: Unix specific helper bits
 
-
+__END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -65,7 +67,7 @@ ExtUtils::Helpers::Unix - Unix specific helper bits
 
 =head1 VERSION
 
-version 0.021
+version 0.022
 
 =for Pod::Coverage make_executable
 split_like_shell
@@ -93,7 +95,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

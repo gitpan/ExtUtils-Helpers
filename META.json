@@ -5,7 +5,7 @@
       "Leon Timmermans <leont@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300033, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Dist::Zilla version 5.011, CPAN::Meta::Converter version 2.132830",
    "license" : [
       "perl_5"
    ],
@@ -30,7 +30,6 @@
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "Config" : "0",
             "Exporter" : "5.57",
             "File::Basename" : "0",
             "File::Copy" : "0",
@@ -45,10 +44,30 @@
       "test" : {
          "requires" : {
             "Cwd" : "0",
-            "File::Find" : "0",
-            "File::Temp" : "0",
-            "Test::More" : "0"
+            "File::Spec" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
+            "Test::More" : "0",
+            "lib" : "0"
          }
+      }
+   },
+   "provides" : {
+      "ExtUtils::Helpers" : {
+         "file" : "lib/ExtUtils/Helpers.pm",
+         "version" : "0.022"
+      },
+      "ExtUtils::Helpers::Unix" : {
+         "file" : "lib/ExtUtils/Helpers/Unix.pm",
+         "version" : "0.022"
+      },
+      "ExtUtils::Helpers::VMS" : {
+         "file" : "lib/ExtUtils/Helpers/VMS.pm",
+         "version" : "0.022"
+      },
+      "ExtUtils::Helpers::Windows" : {
+         "file" : "lib/ExtUtils/Helpers/Windows.pm",
+         "version" : "0.022"
       }
    },
    "release_status" : "stable",
@@ -60,9 +79,9 @@
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/Leont/extutils-helpers.git",
-         "web" : "http://github.com/Leont/extutils-helpers"
+         "web" : "https://github.com/Leont/extutils-helpers"
       }
    },
-   "version" : "0.021"
+   "version" : "0.022"
 }
 

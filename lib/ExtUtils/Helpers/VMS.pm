@@ -1,7 +1,5 @@
 package ExtUtils::Helpers::VMS;
-{
-  $ExtUtils::Helpers::VMS::VERSION = '0.021';
-}
+$ExtUtils::Helpers::VMS::VERSION = '0.022';
 use strict;
 use warnings FATAL => 'all';
 
@@ -90,9 +88,11 @@ sub detildefy {
 
 # ABSTRACT: VMS specific helper bits
 
-
+__END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -100,7 +100,7 @@ ExtUtils::Helpers::VMS - VMS specific helper bits
 
 =head1 VERSION
 
-version 0.021
+version 0.022
 
 =for Pod::Coverage make_executable
 detildefy
@@ -127,7 +127,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-

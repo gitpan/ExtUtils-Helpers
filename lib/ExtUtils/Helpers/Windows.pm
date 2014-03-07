@@ -1,7 +1,5 @@
 package ExtUtils::Helpers::Windows;
-{
-  $ExtUtils::Helpers::Windows::VERSION = '0.021';
-}
+$ExtUtils::Helpers::Windows::VERSION = '0.022';
 use strict;
 use warnings FATAL => 'all';
 
@@ -14,10 +12,7 @@ use Carp qw/carp croak/;
 sub make_executable {
 	my $script = shift;
 	if (-T $script && $script !~ / \. (?:bat|cmd) $ /x) {
-		my $out = eval { _pl2bat(in => $script, update => 1) };
-		if ($@) {
-			carp "WARNING: Unable to convert file '$script' to an executable script:\n$@";
-		}
+		_pl2bat(in => $script, update => 1);
 	}
 	return;
 }
@@ -177,9 +172,11 @@ sub detildefy {
 
 # ABSTRACT: Windows specific helper bits
 
-
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -187,7 +184,7 @@ ExtUtils::Helpers::Windows - Windows specific helper bits
 
 =head1 VERSION
 
-version 0.021
+version 0.022
 
 =for Pod::Coverage make_executable
 split_like_shell
@@ -215,4 +212,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
